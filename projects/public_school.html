@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUBLIC SCHOOL IN NEW YORK CITY</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../favicon/site.webmanifest">
+        
+</head>
+
+
+<body>
+
+    <header>
+        <h1 class="center">PUBLIC SCHOOL IN NEW YORK CITY</h1>
+        
+        <p>The aim of this Project is to process data and find the top-performing schools in New York City, particularly focusing on mathematics.</p>
+        <p>Solution Date: <span class="solution-date">21 March 2024</span></p>
+    </header>
+    <a href="https://github.com/Shanaly34/public_school_project" target="_blank" class="github-button">View on GitHub</a>
+
+    <section class="solution-details">
+        <h2>Solution</h2>
+        <p class="solution-description">First, let's import the necessary Python libraries. For this project, we'll only need <code>pandas</code>.</p>
+        <div class="code-snippet">
+            <pre><code>
+import pandas as pd
+</code></pre>
+        </div>
+
+        <p class="solution-description">Next, we'll load the data from the provided <code>school.csv</code> file using the <code>read_csv()</code> function from pandas.</p>
+        <div class="code-snippet">
+            <pre><code>
+schools = pd.read_csv('school.csv')
+schools.head(10)
+            </code></pre>
+        </div>
+        <div class="ttable"> <table>
+            <thead>
+                <tr>
+                    <th>School Name</th>
+                    <th>Borough</th>
+                    <th>Building Code</th>
+                    <th>Average Math</th>
+                    <th>Average Reading</th>
+                    <th>Average Writing</th>
+                    <th>Percent Tested</th>
+                    <th>Total SAT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>New Explorations into Science, Technology and Math</td>
+                    <td>Manhattan</td>
+                    <td>M022</td>
+                    <td>657</td>
+                    <td>601</td>
+                    <td>601</td>
+                    <td>NaN</td>
+                    <td>1859</td>
+                </tr>
+                <tr>
+                    <td>Essex Street Academy</td>
+                    <td>Manhattan</td>
+                    <td>M445</td>
+                    <td>395</td>
+                    <td>411</td>
+                    <td>387</td>
+                    <td>78.9</td>
+                    <td>1193</td>
+                </tr>
+                <tr>
+                    <td>Lower Manhattan Arts Academy</td>
+                    <td>Manhattan</td>
+                    <td>M445</td>
+                    <td>418</td>
+                    <td>428</td>
+                    <td>415</td>
+                    <td>65.1</td>
+                    <td>1261</td>
+                </tr>
+                <tr>
+                    <td>High School for Dual Language and Asian Studies</td>
+                    <td>Manhattan</td>
+                    <td>M445</td>
+                    <td>613</td>
+                    <td>453</td>
+                    <td>463</td>
+                    <td>95.9</td>
+                    <td>1529</td>
+                </tr>
+                <tr>
+                    <td>Henry Street School for International Studies</td>
+                    <td>Manhattan</td>
+                    <td>M056</td>
+                    <td>410</td>
+                    <td>406</td>
+                    <td>381</td>
+                    <td>59.7</td>
+                    <td>1197</td>
+                </tr>
+            </tbody>
+        </table></div>
+
+
+        <p class="solution-description">Now, let's find the top 10 schools based on their total SAT scores, which are calculated by summing the average scores in math, reading, and writing.</p>
+        <div class="code-snippet">
+            <pre><code>
+schools["total_SAT"] = schools['average_math'] + schools['average_reading'] + schools['average_writing']
+schools_sorted = schools.sort_values("total_SAT", ascending=False)
+top_10_school = schools_sorted[["school_name", "total_SAT"]].head(10)
+print(top_10_school)
+            </code></pre>
+        </div>
+        <div class="ttable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>School Name</th>
+                        <th>Total SAT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>88</td>
+                        <td>Stuyvesant High School</td>
+                        <td>2144</td>
+                    </tr>
+                    <tr>
+                        <td>170</td>
+                        <td>Bronx High School of Science</td>
+                        <td>2041</td>
+                    </tr>
+                    <tr>
+                        <td>93</td>
+                        <td>Staten Island Technical High School</td>
+                        <td>2041</td>
+                    </tr>
+                    <tr>
+                        <td>174</td>
+                        <td>High School of American Studies at Lehman College</td>
+                        <td>2013</td>
+                    </tr>
+                    <tr>
+                        <td>333</td>
+                        <td>Townsend Harris High School</td>
+                        <td>1981</td>
+                    </tr>
+                    <tr>
+                        <td>365</td>
+                        <td>Queens High School for the Sciences at York College</td>
+                        <td>1947</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Bard High School Early College</td>
+                        <td>1914</td>
+                    </tr>
+                    <tr>
+                        <td>280</td>
+                        <td>Brooklyn Technical High School</td>
+                        <td>1896</td>
+                    </tr>
+                    <tr>
+                        <td>45</td>
+                        <td>Eleanor Roosevelt High School</td>
+                        <td>1889</td>
+                    </tr>
+                    <tr>
+                        <td>68</td>
+                        <td>High School for Mathematics, Science, and Engineering at City College</td>
+                        <td>1889</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="solution-description">Now, let's analyze the statistics of SAT scores by borough.</p>
+        <div class="code-snippet">
+            <pre><code>
+borough_stats = schools.groupby('borough')['total_SAT'].agg(['mean', 'std', 'count'])
+largest_std_dev_borough = borough_stats['std'].idxmax()
+largest_std_dev = pd.DataFrame({
+    'borough': [largest_std_dev_borough],
+    'num_schools': [borough_stats.loc[largest_std_dev_borough, 'count']],
+    'average_SAT': [round(borough_stats.loc[largest_std_dev_borough, 'mean'], 2)],
+    'std_SAT': [round(borough_stats.loc[largest_std_dev_borough, 'std'], 2)]
+})
+largest_std_dev.set_index('borough', inplace=True)
+print(largest_std_dev)
+            </code></pre>
+        </div>
+
+        <div class="ttable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Borough</th>
+                        <th>Number of Schools</th>
+                        <th>Average SAT Score</th>
+                        <th>Standard Deviation of SAT Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Manhattan</td>
+                        <td>89</td>
+                        <td>1340.13</td>
+                        <td>230.29</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="solution-description">Finally, let's find the top schools based on their average math scores.</p>
+        <div class="code-snippet">
+            <pre><code>
+best_math_schools = schools[["school_name", "average_math"]].sort_values("average_math", ascending=False).head()
+print(best_math_schools)
+            </code></pre>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>School Name</th>
+                    <th>Average Math Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Stuyvesant High School</td>
+                    <td>754</td>
+                </tr>
+                <tr>
+                    <td>Bronx High School of Science</td>
+                    <td>714</td>
+                </tr>
+                <tr>
+                    <td>Staten Island Technical High School</td>
+                    <td>711</td>
+                </tr>
+                <tr>
+                    <td>Queens High School for the Sciences at York College</td>
+                    <td>701</td>
+                </tr>
+                <tr>
+                    <td>High School for Mathematics, Science, and Engineering at City College</td>
+                    <td>683</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <img class="logo" src="images/black.png" alt="Logo">
+
+    <footer>
+        <p>&copy; 2024 Alfred Baraka Rugoye - Project Solution</p>
+        <a href="https://github.com/Shanaly34/public_school_project" target="_blank" class="github-button">View on GitHub</a>
+    </footer>
+
+</body>
+
+</html>

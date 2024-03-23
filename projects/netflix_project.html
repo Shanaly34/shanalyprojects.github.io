@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Movie Duration Analysis</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../favicon/site.webmanifest">
+</head>
+
+<body>
+
+    <header>
+        <h1 class="center">Netflix Movie Duration Analysis</h1>
+        <p>The aim of this Project is to process data and find the truth if Netflix movie is become shorter over times</p>
+        <p>Solution Date: <span class="solution-date">23 March 2024</span></p>
+    </header>
+    <a href="https://github.com/Shanaly34/netflix_project" target="_blank" class="github-button">View on GitHub</a>
+
+    <section class="solution-details">
+        <h2>Solution</h2>
+
+        <p class="solution-description">In this tutorial, we'll analyze the duration of movies available on Netflix and visualize the relationship between movie duration and release year, while also exploring the distribution of genres.</p>
+
+        <p class="solution-description">Let's start by importing the necessary Python libraries: pandas for data manipulation and matplotlib for data visualization.</p>
+        <div class="code-snippet">
+            <pre><code>
+import pandas as pd
+import matplotlib.pyplot as plt
+            </code></pre>
+        </div>
+
+        <p class="solution-description">Next, let's load the Netflix dataset and create a DataFrame.</p>
+        <div class="code-snippet">
+            <pre><code>
+netflix_df = pd.read_csv("netflix_data.csv")
+netflix_df.head()
+            </code></pre>
+        </div>
+
+        <div class="ttable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Show ID</th>
+                        <th>Type</th>
+                        <th>Title</th>
+                        <th>Director</th>
+                        <th>Cast</th>
+                        <th>Country</th>
+                        <th>Date Added</th>
+                        <th>Release Year</th>
+                        <th>Duration</th>
+                        <th>Description</th>
+                        <th>Genre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>s1</td>
+                        <td>TV Show</td>
+                        <td>3%</td>
+                        <td>NaN</td>
+                        <td>João Miguel, Bianca Comparato, Michel Gomes, Rafael Lozano, Viviane Porto</td>
+                        <td>Brazil</td>
+                        <td>August 14, 2020</td>
+                        <td>2020</td>
+                        <td>4</td>
+                        <td>In a future where the elite inhabit an island paradise far from the crowded slums, you get one chance to join the 3% saved from squalor.</td>
+                        <td>International TV</td>
+                    </tr>
+                    <tr>
+                        <td>s2</td>
+                        <td>Movie</td>
+                        <td>7:19</td>
+                        <td>Jorge Michel Grau</td>
+                        <td>Demián Bichir, Héctor Bonilla, Oscar Serrano, Azalia Ortiz, Octavio Michel</td>
+                        <td>Mexico</td>
+                        <td>December 23, 2016</td>
+                        <td>2016</td>
+                        <td>93</td>
+                        <td>After a devastating earthquake hits Mexico City, trapped survivors from all walks of life wait to be rescued while trying desperately to stay alive.</td>
+                        <td>Dramas</td>
+                    </tr>
+                    <tr>
+                        <td>s3</td>
+                        <td>Movie</td>
+                        <td>23:59</td>
+                        <td>Gilbert Chan</td>
+                        <td>Tedd Chan, Stella Chung, Henley Hii, Lawrence Koh, Tommy Kuan</td>
+                        <td>Singapore</td>
+                        <td>December 20, 2018</td>
+                        <td>2011</td>
+                        <td>78</td>
+                        <td>When an army recruit is found dead, his fellow soldiers are forced to confront a terrifying secret that's haunting their jungle island training camp.</td>
+                        <td>Horror Movies</td>
+                    </tr>
+                    <tr>
+                        <td>s4</td>
+                        <td>Movie</td>
+                        <td>9</td>
+                        <td>Shane Acker</td>
+                        <td>Elijah Wood, John C. Reilly, Jennifer Connelly, Christopher Plummer, Crispin Glover</td>
+                        <td>United States</td>
+                        <td>November 16, 2017</td>
+                        <td>2009</td>
+                        <td>80</td>
+                        <td>In a postapocalyptic world, rag-doll robots hide in fear from dangerous machines out to exterminate them, until a brave newcomer joins the group.</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr>
+                        <td>s5</td>
+                        <td>Movie</td>
+                        <td>21</td>
+                        <td>Robert Luketic</td>
+                        <td>Jim Sturgess, Kevin Spacey, Kate Bosworth, Aaron Yoo, Liza Lapira</td>
+                        <td>United States</td>
+                        <td>January 1, 2020</td>
+                        <td>2008</td>
+                        <td>123</td>
+                        <td>A brilliant group of students become card-counting experts with the intent of swindling millions out of Las Vegas casinos by playing blackjack.</td>
+                        <td>Dramas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="solution-description">Now, we'll filter the DataFrame to include only movies.</p>
+        <div class="code-snippet">
+            <pre><code>
+netflix_subset = netflix_df[netflix_df["type"] == "Movie"]
+            </code></pre>
+        </div>
+
+        <!-- Add more steps as needed -->
+
+        <p class="solution-description">Finally, let's create a scatter plot to visualize the relationship between movie duration and release year, with colors representing different genres.</p>
+        <div class="code-snippet">
+            <pre><code>
+# Define an empty list
+colors = []
+
+# Iterate over rows of netflix_movies
+for label, row in netflix_movies.iterrows() :
+    if row["genre"] == "Children" :
+        colors.append("red")
+    elif row["genre"] == "Documentaries" :
+        colors.append("blue")
+    elif row["genre"] == "Stand-Up":
+        colors.append("green")
+    else:
+        colors.append("black")
+
+# Create a scatter plot of duration versus release_year
+plt.scatter(netflix_movies.release_year, netflix_movies.duration, c=colors)
+
+# Create a title and axis labels
+plt.title("Movie Duration by Year of Release")
+plt.xlabel("Release year")
+plt.ylabel("Duration (min)")
+
+# Show the plot
+plt.show()
+            </code></pre>
+        </div>
+        <img class="logo" src="images/project1.png" alt="Logo">
+    </section>
+    <img class="logo" src="images/black.png" alt="Logo">
+
+    <footer>
+        <p>&copy; 2024 Alfred Baraka Rugoye - Netflix Movie Duration Analysis Tutorial</p>
+        <a href="https://github.com/Shanaly34/netflix_project" target="_blank" class="github-button">View on GitHub</a>
+    </footer>
+
+</body>
+
+</html>
